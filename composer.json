@@ -41,8 +41,7 @@
             "npm run build"
         ],
         "dev": [
-            "Composer\\Config::disableProcessTimeout",
-            "@php artisan dev"
+            "php artisan serve --port=6970"
         ],
         "test": [
             "@php artisan config:clear --ansi @no_additional_args",
