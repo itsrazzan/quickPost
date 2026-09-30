@@ -6,4 +6,6 @@
 @theme {
     --font-sans: 'Instrument Sans', ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji',
         'Segoe UI Symbol', 'Noto Color Emoji';
+     --color-accent: #ea580c;         /* orange-600: logo, underline, focus ring */
+     --color-accent-strong: #c2410c;  /* orange-700: text hover (passes contrast) */
 }
