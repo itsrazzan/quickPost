@@ -29,8 +29,8 @@ Route::redirect('/hubungikami', '/contactus');
 
     //Route Fallback
 Route::fallback(function (){
-    return "Sorry, The page you are looking for is not found";
-});
+    return view('errors.404');
+})-> name('404');
 
     //Route with optional parameter
 Route::get('/ourteam/{name?}',
