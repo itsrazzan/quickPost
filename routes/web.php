@@ -11,12 +11,12 @@ return "Hello World";
     // Default Route
 Route::get('/', function () {
 return view('home');
-});
+})->name('home');
 Route::get('/about', function () {
 return view('about');
-});
-Route::get('/Program', function () {
-return view('Program');
+})->name('about');
+Route::get('/program', function () {
+return view('program');
 });
 Route::get('/ourteam', function () {
 return view('ourteam');
