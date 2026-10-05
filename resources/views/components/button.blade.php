@@ -1,6 +1,6 @@
 {{-- resources/views/components/button.blade.php --}}
-{{-- Usage: <x-button href="#">Get Started</x-button>
-            <x-button variant="light" href="#">See Features</x-button> --}}
+{{-- Usage: <x-button href="{{ route('about') }}">See how QuickPost works</x-button>
+            <x-button variant="light" href="{{ route('home') }}">Back to home</x-button> --}}
 @props(['variant' => 'dark'])
 
 @php
@@ -9,15 +9,16 @@
           . 'focus-visible:outline-3 focus-visible:outline-offset-3 focus-visible:outline-accent';
 
     $variants = [
+        // Elevation stays small: a button marks interaction, it does not float (DESIGN.md).
         'dark'  => 'bg-linear-to-b from-neutral-700 to-neutral-900 text-white '
-                 . 'shadow-[inset_0_1px_0_rgba(255,255,255,0.18),0_10px_24px_rgba(0,0,0,0.28)] '
-                 . 'hover:shadow-[inset_0_1px_0_rgba(255,255,255,0.18),0_14px_30px_rgba(0,0,0,0.32)] '
-                 . 'active:shadow-[inset_0_1px_0_rgba(255,255,255,0.12),0_4px_10px_rgba(0,0,0,0.25)]',
+                 . 'shadow-[0_2px_6px_rgba(0,0,0,0.20)] '
+                 . 'hover:shadow-[0_4px_12px_rgba(0,0,0,0.24)] '
+                 . 'active:shadow-[0_1px_3px_rgba(0,0,0,0.18)]',
 
-        'light' => 'bg-white text-neutral-800 '
-                 . 'shadow-[0_6px_18px_rgba(0,0,0,0.08)] '
-                 . 'hover:shadow-[0_10px_24px_rgba(0,0,0,0.12)] '
-                 . 'active:shadow-[0_2px_8px_rgba(0,0,0,0.08)]',
+        // The border is the boundary: white on white needs a 3:1 edge, and neutral-500
+        // is the nearest Tailwind stop that passes (4.74:1 on white, computed).
+        'light' => 'border border-neutral-500 bg-white text-neutral-800 '
+                 . 'hover:bg-neutral-50 active:bg-neutral-100',
     ];
 @endphp
 

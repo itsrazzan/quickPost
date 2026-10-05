@@ -50,7 +50,7 @@
 
             {{-- Why it exists + stack --}}
             <section class="mx-auto mt-16 grid max-w-5xl grid-cols-5 gap-6 px-6">
-                <div class="col-span-3 rounded-2xl bg-white p-8 shadow-[0_8px_30px_rgba(0,0,0,0.06)]">
+                <div class="col-span-3 rounded-2xl border border-neutral-200 bg-white p-8">
                     <h2 class="text-xl font-semibold text-neutral-900">Why it exists</h2>
                     <p class="mt-3 leading-relaxed text-neutral-600">
                         Managing several social accounts means repeating the same steps in every app.
@@ -63,7 +63,7 @@
                     </p>
                 </div>
 
-                <div class="col-span-2 rounded-2xl bg-white p-8 shadow-[0_8px_30px_rgba(0,0,0,0.06)]">
+                <div class="col-span-2 rounded-2xl border border-neutral-200 bg-white p-8">
                     <h2 class="text-xl font-semibold text-neutral-900">Built with</h2>
                     <ul class="mt-4 flex flex-wrap gap-2">
                         @foreach ($stack as $tool)
@@ -79,7 +79,7 @@
             <section class="mx-auto mt-16 max-w-5xl px-6">
                 <h2 class="text-2xl font-bold tracking-tight text-neutral-900">Where the project is</h2>
 
-                <ul class="mt-6 divide-y divide-neutral-100 rounded-2xl bg-white px-8 shadow-[0_8px_30px_rgba(0,0,0,0.06)]">
+                <ul class="mt-6 divide-y divide-neutral-100 rounded-2xl border border-neutral-200 bg-white px-8">
                     @foreach ($progress as $item)
                         <li class="flex items-center justify-between py-4">
                             <span class="text-neutral-800">{{ $item['task'] }}</span>
@@ -97,7 +97,7 @@
 
                 <div class="mt-6 space-y-3">
                     @foreach ($faqs as $faq)
-                        <details class="group rounded-2xl bg-white px-8 py-5 shadow-[0_6px_18px_rgba(0,0,0,0.06)]">
+                        <details class="group rounded-2xl border border-neutral-200 bg-white px-8 py-5">
                             <summary class="flex cursor-pointer list-none items-center justify-between gap-6 font-medium text-neutral-900
                                             focus-visible:outline-3 focus-visible:outline-offset-4 focus-visible:outline-accent
                                             [&::-webkit-details-marker]:hidden">
