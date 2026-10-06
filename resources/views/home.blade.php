@@ -6,7 +6,7 @@
         <title>QuickPost</title>
         @vite(['resources/css/app.css', 'resources/js/app.js'])
     </head>
-    <body>
+    <body class="bg-neutral-100 text-neutral-800 antialiased">
         @include('partials.header')
         <main>
            {{-- @include('welcome') --}}
@@ -41,20 +41,22 @@
     </p>
 
     <div class="mt-9 flex items-center justify-center gap-4">
-        <x-button href="#" class="px-7 py-3.5 text-base">Get Started</x-button>
-        <x-button variant="light" href="{{ route('about') }}" class="px-7 py-3.5 text-base">Learn More</x-button>
+        <x-button href="{{ route('about') }}" class="px-7 py-3.5 text-base">See how QuickPost works</x-button>
     </div>
 </section>
 
-{{-- Dashboard mockup --}}
-<section class="mx-auto mt-16 max-w-5xl px-6">
-    <div class="grid grid-cols-5 gap-6 rounded-3xl bg-white/70 p-6 shadow-[0_20px_60px_rgba(0,0,0,0.10)]">
+{{-- Interface preview. Labelled as a preview: everything inside is an example, not real data (R-38). --}}
+<section class="mx-auto mt-16 max-w-5xl px-6" aria-label="Interface preview">
+    <p class="text-center text-sm font-medium text-neutral-600">
+        Interface preview. Everything shown is an example, not real data.
+    </p>
+    <div class="mt-6 grid grid-cols-5 gap-6 rounded-3xl bg-white/70 p-6 shadow-[0_20px_60px_rgba(0,0,0,0.10)]">
 
         {{-- Composer --}}
-        <div class="col-span-2 rounded-2xl bg-white p-5 shadow-[0_6px_18px_rgba(0,0,0,0.06)]">
+        <div class="col-span-2 rounded-2xl border border-neutral-200 bg-white p-5">
             <h2 class="text-sm font-semibold text-neutral-900">New post</h2>
 
-            <div class="mt-4 h-28 rounded-xl bg-neutral-100 p-3 text-sm text-neutral-400">
+            <div class="mt-4 h-28 rounded-xl bg-neutral-100 p-3 text-sm text-neutral-600">
                 What do you want to share?
             </div>
 
@@ -71,8 +73,8 @@
         </div>
 
         {{-- Post list --}}
-        <div class="col-span-3 rounded-2xl bg-white p-5 shadow-[0_6px_18px_rgba(0,0,0,0.06)]">
-            <h2 class="text-sm font-semibold text-neutral-900">Your posts</h2>
+        <div class="col-span-3 rounded-2xl border border-neutral-200 bg-white p-5">
+            <h2 class="text-sm font-semibold text-neutral-900">Example posts</h2>
 
             <ul class="mt-4 divide-y divide-neutral-100">
                 @forelse ($posts as $post)
@@ -103,23 +105,25 @@
         Less switching between apps, more time to write
     </h2>
 
-    <div class="mt-10 grid grid-cols-3 gap-6">
-        @foreach ($features as $feature)
-            <div class="rounded-2xl bg-white p-7 shadow-[0_8px_30px_rgba(0,0,0,0.06)]">
-                <h3 class="text-lg font-semibold text-neutral-900">{{ $feature['title'] }}</h3>
+    {{-- The three features are the product's actual sequence, so they read as steps, not cards. --}}
+    <ol class="mt-10 grid grid-cols-3 gap-6">
+        @foreach ($features as $index => $feature)
+            <li class="border-t-2 border-neutral-900 pt-5">
+                <span class="text-sm font-semibold text-accent-strong">Step {{ $index + 1 }}</span>
+                <h3 class="mt-2 text-lg font-semibold text-neutral-900">{{ $feature['title'] }}</h3>
                 <p class="mt-2 text-sm leading-relaxed text-neutral-600">{{ $feature['text'] }}</p>
-            </div>
+            </li>
         @endforeach
-    </div>
+    </ol>
 </section>
 
 {{-- Closing call to action --}}
 <section class="mx-auto mt-24 max-w-5xl px-6">
     <div class="flex items-center justify-between gap-8 rounded-3xl bg-neutral-900 px-10 py-12">
         <h2 class="max-w-md text-3xl font-bold tracking-tight text-white">
-            Schedule your first post today
+            QuickPost is still in progress
         </h2>
-        <x-button variant="light" href="#" class="px-7 py-3.5 text-base">Get Started</x-button>
+        <x-button variant="light" href="{{ route('about') }}" class="px-7 py-3.5 text-base">See what's done so far</x-button>
     </div>
 </section>
         </main>

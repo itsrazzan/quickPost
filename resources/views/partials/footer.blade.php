@@ -1,5 +1,6 @@
 {{-- resources/views/partials/footer.blade.php --}}
 {{-- Desktop layout. Links with '#' are placeholders until those pages exist. --}}
+{{-- Links with null have no page yet: they render as plain "(soon)" text, never as dead links. --}}
 @php
     $columns = [
         'Pages' => [
@@ -7,18 +8,18 @@
             ['About', route('about')],
         ],
         'Product' => [
-            ['Features',   '#'],   // TODO: real page
-            ['Scheduling', '#'],   // TODO: real page
+            ['Features',   null],
+            ['Scheduling', null],
         ],
         'Legal' => [
-            ['Privacy Policy', '#'],   // TODO: real page
-            ['Terms of Use',   '#'],   // TODO: real page
+            ['Privacy Policy', null],
+            ['Terms of Use',   null],
         ],
     ];
 @endphp
 
 <footer class="mx-auto mt-24 max-w-5xl px-6 pb-10">
-    <div class="rounded-3xl bg-white px-10 py-12 shadow-[0_8px_30px_rgba(0,0,0,0.06)]">
+    <div class="rounded-3xl border border-neutral-200 bg-white px-10 py-12">
 
         <div class="flex justify-between gap-16">
             {{-- Brand + tagline --}}
@@ -45,10 +46,14 @@
                         <ul class="space-y-3 text-neutral-500">
                             @foreach ($items as [$label, $url])
                                 <li>
-                                    <a href="{{ $url }}"
-                                       class="transition hover:text-accent-strong">
-                                        {{ $label }}
-                                    </a>
+                                    @if ($url)
+                                        <a href="{{ $url }}"
+                                           class="transition hover:text-accent-strong">
+                                            {{ $label }}
+                                        </a>
+                                    @else
+                                        <span>{{ $label }} (soon)</span>
+                                    @endif
                                 </li>
                             @endforeach
                         </ul>
