@@ -1,3 +1,10 @@
+@extends('layouts.workspace')
+
+@section('title', 'Dashboard')
+@section('page-title', 'Dashboard')
+@section('page-description', 'Plan and review your social content in one place.')
+
+@section('content')
 @php
     $monthStart = now()->startOfMonth();
     $calendarDays = array_merge(
@@ -6,98 +13,10 @@
     );
     $calendarDays = array_pad($calendarDays, (int) ceil(count($calendarDays) / 7) * 7, null);
 
-    $navigation = [
-        ['label' => 'Dashboard', 'available' => true],
-        ['label' => 'Publishing', 'available' => false],
-        ['label' => 'Drafts', 'available' => false],
-        ['label' => 'Media library', 'available' => false],
-        ['label' => 'Analytics', 'available' => false],
-        ['label' => 'Settings', 'available' => false],
-    ];
-
     $weekdays = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
 @endphp
 
-<!DOCTYPE html>
-<html lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <title>Dashboard - QuickPost</title>
-        @vite(['resources/css/app.css', 'resources/js/app.js'])
-    </head>
-    <body class="bg-neutral-100 text-neutral-800 antialiased">
-        <header class="border-b border-neutral-200 bg-neutral-100">
-            <div class="mx-auto flex max-w-7xl items-center justify-between px-5 py-4 sm:px-8">
-                <a href="{{ route('home') }}"
-                   class="flex items-center gap-2.5 text-lg font-bold tracking-tight text-neutral-900">
-                    <span class="grid size-8 place-items-center rounded-lg bg-accent text-white">
-                        <svg viewBox="0 0 24 24" class="size-4.5" fill="none" stroke="currentColor"
-                             stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-                            <circle cx="12" cy="12" r="8.5"/>
-                            <path d="M12 7.5V12l3 2"/>
-                        </svg>
-                    </span>
-                    QuickPost
-                </a>
-
-                <a href="{{ route('about') }}"
-                   class="text-sm font-medium text-neutral-600 transition hover:text-accent-strong">
-                    About QuickPost
-                </a>
-            </div>
-        </header>
-
-        <div class="mx-auto flex max-w-7xl gap-8 px-5 py-8 sm:px-8 lg:py-10">
-            <aside class="hidden w-52 shrink-0 md:block" aria-label="Dashboard navigation">
-                <p class="mb-3 px-3 text-sm font-semibold text-neutral-900">Workspace</p>
-                <nav>
-                    <ul class="space-y-1">
-                        @foreach ($navigation as $item)
-                            <li>
-                                @if ($item['available'])
-                                    <a href="{{ route('dashboard') }}" aria-current="page"
-                                       class="flex items-center gap-3 rounded-xl bg-white px-3 py-2.5 text-sm font-semibold text-neutral-900">
-                                        <svg viewBox="0 0 24 24" class="size-4.5 text-accent-strong" fill="none"
-                                             stroke="currentColor" stroke-width="1.8" aria-hidden="true">
-                                            <rect x="3.5" y="3.5" width="7" height="7" rx="1.5"/>
-                                            <rect x="13.5" y="3.5" width="7" height="7" rx="1.5"/>
-                                            <rect x="3.5" y="13.5" width="7" height="7" rx="1.5"/>
-                                            <rect x="13.5" y="13.5" width="7" height="7" rx="1.5"/>
-                                        </svg>
-                                        {{ $item['label'] }}
-                                    </a>
-                                @else
-                                    <span class="flex items-center justify-between rounded-xl px-3 py-2.5 text-sm text-neutral-500">
-                                        {{ $item['label'] }}
-                                        <span class="text-xs">(soon)</span>
-                                    </span>
-                                @endif
-                            </li>
-                        @endforeach
-                    </ul>
-                </nav>
-
-                <div class="mt-8 border-t border-neutral-200 pt-5">
-                    <p class="px-3 text-xs leading-relaxed text-neutral-500">
-                        QuickPost is a learning project. Posting to social platforms is not available yet.
-                    </p>
-                </div>
-            </aside>
-
-            <main class="min-w-0 flex-1">
-                <div class="flex flex-col justify-between gap-5 sm:flex-row sm:items-end">
-                    <div>
-                        <p class="text-sm font-medium text-accent-strong">Workspace overview</p>
-                        <h1 class="mt-1 text-3xl font-bold tracking-tight text-neutral-900">Dashboard</h1>
-                        <p class="mt-2 text-sm text-neutral-600">Plan and review your social content in one place.</p>
-                    </div>
-                    <span class="inline-flex w-fit items-center rounded-full border border-neutral-200 bg-white px-3 py-1.5 text-xs font-medium text-neutral-600">
-                        Interface preview. Everything shown is an example, not real data.
-                    </span>
-                </div>
-
-                <div class="mt-7 grid gap-5 lg:grid-cols-2">
+<div class="grid gap-5 lg:grid-cols-2">
                     <section class="rounded-2xl border border-neutral-200 bg-white p-5 sm:p-6"
                              aria-labelledby="calendar-title">
                         <div class="flex items-center justify-between gap-4 border-b border-neutral-200 pb-4">
@@ -221,11 +140,4 @@
                         </div>
                     </section>
                 </div>
-
-                <p class="mt-6 text-center text-xs text-neutral-500 md:hidden">
-                    Publishing, drafts, media library, analytics, and settings (soon)
-                </p>
-            </main>
-        </div>
-    </body>
-</html>
+@endsection

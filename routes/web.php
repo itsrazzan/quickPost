@@ -1,22 +1,81 @@
 <?php
 
+use App\Http\Middleware\EnsureDemoUser;
+use Carbon\CarbonImmutable;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/hello', function () {
-return "Hello World";
+    return 'Hello World';
 });
 
-
-//Assignment Week 2
-    // Default Route
+// Assignment Week 2
+// Default Route
 Route::get('/', function () {
-return view('home');
+    return view('home');
 })->name('home');
-Route::get('/dashboard', function () {
-    return view('dashboard');
-})->name('dashboard');
+
+Route::get('/login', function (Request $request) {
+    if ($request->session()->has('demo_user_name')) {
+        return to_route('dashboard');
+    }
+
+    $intent = $request->query('intent') === 'signup' ? 'signup' : 'login';
+
+    return view('auth.login', ['intent' => $intent]);
+})->name('login');
+
+Route::post('/demo-session', function (Request $request) {
+    $request->validate([
+        'intent' => ['required', 'in:login,signup'],
+    ]);
+
+    $request->session()->regenerate();
+    $request->session()->put('demo_user_name', 'Agil Razzan');
+
+    return to_route('dashboard');
+})->name('demo-session.store');
+
+Route::middleware(EnsureDemoUser::class)->group(function () {
+    Route::get('/dashboard', function () {
+        return view('dashboard');
+    })->name('dashboard');
+
+    Route::get('/analytics', function () {
+        return view('workspace.analytics');
+    })->name('analytics');
+
+    Route::get('/calendar', function (Request $request) {
+        $validated = $request->validate([
+            'month' => ['sometimes', 'date_format:Y-m'],
+        ]);
+        $calendarMonth = CarbonImmutable::parse(($validated['month'] ?? now()->format('Y-m')).'-01');
+
+        return view('workspace.calendar', ['calendarMonth' => $calendarMonth]);
+    })->name('calendar');
+
+    Route::get('/drafts', function () {
+        return view('workspace.drafts');
+    })->name('drafts');
+
+    Route::get('/media-library', function () {
+        return view('workspace.media-library');
+    })->name('media-library');
+
+    Route::get('/settings', function () {
+        return view('workspace.settings');
+    })->name('settings');
+
+    Route::post('/logout', function (Request $request) {
+        $request->session()->invalidate();
+        $request->session()->regenerateToken();
+
+        return to_route('home');
+    })->name('logout');
+});
+
 Route::get('/about', function () {
-return view('about');
+    return view('about');
 })->name('about');
 Route::get('/program', function () {
     return view('comingsoon', ['page' => 'Program']);
@@ -27,17 +86,16 @@ Route::get('/ourteam', function () {
 Route::get('/contactus', function () {
     return view('comingsoon', ['page' => 'Contact us']);
 });
-    //Route Redirect
+// Route Redirect
 Route::redirect('/hubungikami', '/contactus');
 
-    //Route Fallback
-Route::fallback(function (){
+// Route Fallback
+Route::fallback(function () {
     return view('errors.404');
-})-> name('404');
+})->name('404');
 
-    //Route with optional parameter
+// Route with optional parameter
 Route::get('/ourteam/{name?}',
-function ($name){
-    echo "Meet Our Team Member: $name";
-})
-?>
+    function ($name) {
+        echo "Meet Our Team Member: $name";
+    });
