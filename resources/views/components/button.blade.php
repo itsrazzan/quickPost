@@ -1,24 +1,23 @@
 {{-- resources/views/components/button.blade.php --}}
 {{-- Usage: <x-button href="{{ route('about') }}">See how QuickPost works</x-button>
-            <x-button variant="light" href="{{ route('home') }}">Back to home</x-button> --}}
+          <x-button variant="light" href="{{ route('home') }}">Back to home</x-button>
+          <x-button variant="soft" href="{{ route('about') }}">Learn more</x-button> --}}
 @props(['variant' => 'dark'])
 
 @php
-    $base = 'inline-flex items-center justify-center rounded-xl px-5 py-2.5 text-sm font-semibold '
-          . 'transition duration-150 hover:-translate-y-0.5 active:translate-y-px '
+    // Pill shape, pressable feedback: 150ms, scale on :active (DESIGN.md, Motion).
+    $base = 'inline-flex items-center justify-center rounded-full px-5 py-2.5 text-sm font-semibold '
+          . 'transition duration-150 ease-ui active:scale-[.96] '
           . 'focus-visible:outline-3 focus-visible:outline-offset-3 focus-visible:outline-accent';
 
     $variants = [
-        // Elevation stays small: a button marks interaction, it does not float (DESIGN.md).
-        'dark'  => 'bg-linear-to-b from-neutral-700 to-neutral-900 text-white '
-                 . 'shadow-[0_2px_6px_rgba(0,0,0,0.20)] '
-                 . 'hover:shadow-[0_4px_12px_rgba(0,0,0,0.24)] '
-                 . 'active:shadow-[0_1px_3px_rgba(0,0,0,0.18)]',
+        // White on accent-strong passes 4.5:1; white on accent (3.37:1) would not.
+        'dark'  => 'bg-accent-strong text-white hover:bg-accent-deep',
 
-        // The border is the boundary: white on white needs a 3:1 edge, and neutral-500
-        // is the nearest Tailwind stop that passes (4.74:1 on white, computed).
-        'light' => 'border border-neutral-500 bg-white text-neutral-800 '
-                 . 'hover:bg-neutral-50 active:bg-neutral-100',
+        'light' => 'border border-neutral-200 bg-white text-neutral-800 '
+                 . 'hover:border-neutral-300 hover:bg-neutral-50',
+
+        'soft'  => 'bg-accent-pale text-neutral-900 hover:bg-accent-soft',
     ];
 @endphp
 

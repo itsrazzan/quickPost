@@ -4,8 +4,90 @@
 @source '../../storage/framework/views/*.php';
 
 @theme {
-    --font-sans: 'Instrument Sans', ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji',
+    /* Type: Inter for everything, Funnel Display for headings (see DESIGN.md). */
+    --font-sans: 'Inter', ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji',
         'Segoe UI Symbol', 'Noto Color Emoji';
-     --color-accent: #ea580c;         /* orange-600: logo, underline, focus ring */
-     --color-accent-strong: #c2410c;  /* orange-700: text hover (passes contrast) */
+    --font-display: 'Funnel Display', 'Inter', ui-sans-serif, system-ui, sans-serif;
+
+    /* Accent: orange-600 family. Small accent text must use accent-strong (contrast, DESIGN.md). */
+    --color-accent: #ea580c;
+    --color-accent-strong: #c2410c;
+    --color-accent-deep: #9a3412;
+    --color-accent-soft: #ffedd5;
+    --color-accent-pale: #fff7ed;
+
+    /* Elevation: soft, small, black, never colored. */
+    --shadow-nav: 0 10px 30px rgba(17, 24, 39, 0.10);
+    --shadow-chip: 3.6px 4.8px 11.58px rgba(0, 0, 0, 0.15);
+    --shadow-frame: 0 18px 40px rgba(0, 0, 0, 0.14);
+
+    /* Motion curves, borrowed from the sumopod system. */
+    --ease-ui: cubic-bezier(0.23, 1, 0.32, 1);
+    --ease-content: cubic-bezier(0.22, 1, 0.36, 1);
+
+    --animate-word-reveal: word-reveal 0.65s var(--ease-ui) both;
+    --animate-float: float 3.6s ease-in-out infinite;
+    --animate-marquee: marquee 36s linear infinite;
+
+    @keyframes word-reveal {
+        from {
+            clip-path: inset(100% 0 0);
+            transform: translateY(0.18em);
+        }
+        to {
+            clip-path: inset(0 0 0);
+            transform: translateY(0);
+        }
+    }
+
+    @keyframes float {
+        0%,
+        100% {
+            transform: translateY(0);
+        }
+        50% {
+            transform: translateY(-7px);
+        }
+    }
+
+    @keyframes marquee {
+        to {
+            transform: translateX(calc(-50% - 0.5rem));
+        }
+    }
+}
+
+/* Scroll reveal: JS adds .is-visible once the element enters the viewport. */
+@layer components {
+    [data-reveal] {
+        opacity: 0;
+        transform: translateY(18px);
+        transition:
+            opacity 0.7s var(--ease-content),
+            transform 0.7s var(--ease-content);
+    }
+
+    [data-reveal].is-visible {
+        opacity: 1;
+        transform: none;
+    }
+}
+
+/* Fade the left/right edges of marquee rows. */
+@utility mask-edge {
+    mask-image: linear-gradient(90deg, transparent, #000 7%, #000 93%, transparent);
+}
+
+@media (prefers-reduced-motion: reduce) {
+    [data-reveal] {
+        opacity: 1;
+        transform: none;
+        transition: none;
+    }
+
+    .animate-word-reveal,
+    .animate-float,
+    .animate-marquee {
+        animation: none;
+    }
 }

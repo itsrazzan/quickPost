@@ -25,19 +25,10 @@
     ];
 @endphp
 
-<!DOCTYPE html>
-<html lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <title>About - QuickPost</title>
-        @vite(['resources/css/app.css', 'resources/js/app.js'])
-    </head>
-    <body class="bg-neutral-100 text-neutral-800 antialiased">
-        @include('partials.header')
+<x-layouts.app>
+    <x-slot:title>About</x-slot:title>
 
-        <main>
-            {{-- Intro --}}
+    {{-- Intro --}}
             <section class="mx-auto max-w-5xl px-6 pt-20">
                 <h1 class="max-w-3xl text-5xl font-bold leading-[1.1] tracking-tight text-balance text-neutral-900">
                     A scheduler for social posts, built to learn Laravel
@@ -112,8 +103,4 @@
                     @endforeach
                 </div>
             </section>
-        </main>
-
-        @include('partials.footer')
-    </body>
-</html>
+</x-layouts.app>

@@ -27,8 +27,10 @@
                 <a href="{{ route('home') }}"
                    class="flex items-center gap-2.5 text-lg font-bold tracking-tight text-neutral-900">
                     <span class="grid size-8 place-items-center rounded-lg bg-accent text-white">
-                        <svg viewBox="0 0 24 24" class="size-4.5" fill="currentColor" aria-hidden="true">
-                            <path d="M13 2 4 14h6l-1 8 9-12h-6l1-8Z"/>
+                        <svg viewBox="0 0 24 24" class="size-4.5" fill="none" stroke="currentColor"
+                             stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                            <circle cx="12" cy="12" r="8.5"/>
+                            <path d="M12 7.5V12l3 2"/>
                         </svg>
                     </span>
                     QuickPost

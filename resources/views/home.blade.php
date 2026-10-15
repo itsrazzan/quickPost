@@ -1,16 +1,5 @@
-<!DOCTYPE html>
-<html lang="en">
-    <head>
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <title>QuickPost</title>
-        @vite(['resources/css/app.css', 'resources/js/app.js'])
-    </head>
-    <body class="bg-neutral-100 text-neutral-800 antialiased">
-        @include('partials.header')
-        <main>
-           {{-- @include('welcome') --}}
-           @php
+<x-layouts.app>
+    @php
     // Dummy data. Later, move these arrays into a controller and pass them with view('welcome', compact(...)).
     $posts = [
         ['text' => 'We just shipped our new landing page.', 'platforms' => ['Instagram', 'LinkedIn'], 'time' => 'Today, 15:00',    'status' => 'scheduled'],
@@ -126,7 +115,4 @@
         <x-button variant="light" href="{{ route('about') }}" class="px-7 py-3.5 text-base">See what's done so far</x-button>
     </div>
 </section>
-        </main>
-        @include('partials.footer')
-    </body>
-</html>
+</x-layouts.app>
