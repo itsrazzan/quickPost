@@ -3,7 +3,7 @@
      Expects named routes: 'home' and 'about'. --}}
 @php
     $links = [
-        ['label' => 'Home',  'route' => 'home'],
+        ['label' => 'Home', 'route' => 'home'],
         ['label' => 'About', 'route' => 'about'],
     ];
 @endphp
