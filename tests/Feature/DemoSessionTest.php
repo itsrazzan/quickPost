@@ -6,12 +6,12 @@ use Tests\TestCase;
 
 class DemoSessionTest extends TestCase
 {
-    public function test_landing_page_links_to_login_and_signup(): void
+    public function test_landing_page_links_to_get_started(): void
     {
         $response = $this->get(route('home'));
 
         $response->assertOk();
-        $response->assertSee(route('login', ['intent' => 'login']));
+        $response->assertSee('Get started');
         $response->assertSee(route('login', ['intent' => 'signup']));
     }
 

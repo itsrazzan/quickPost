@@ -42,12 +42,8 @@
                 @endforeach
             </ul>
 
-            {{-- Auth CTAs: the demo workspace lives behind the login flow. --}}
-            <a href="{{ route('login', ['intent' => 'login']) }}"
-               class="hidden text-sm font-semibold text-neutral-700 transition duration-150 ease-ui hover:text-accent-strong md:inline-flex">
-                Login
-            </a>
-            <x-button href="{{ route('login', ['intent' => 'signup']) }}" class="hidden px-5 py-2.5 sm:inline-flex">Sign up</x-button>
+            {{-- Single CTA: Get started opens the signup flow (login stays available on that page). --}}
+            <x-button size="sm" href="{{ route('login', ['intent' => 'signup']) }}" class="hidden sm:inline-flex">Get started</x-button>
 
             <button type="button"
                     data-menu-button
@@ -86,10 +82,6 @@
                 </li>
             @endforeach
         </ul>
-        <a href="{{ route('login', ['intent' => 'login']) }}"
-           class="mt-2 block rounded-2xl px-4 py-3 text-center text-sm font-semibold text-neutral-700 transition duration-150 ease-ui hover:bg-neutral-100 hover:text-neutral-900">
-            Login
-        </a>
-        <x-button href="{{ route('login', ['intent' => 'signup']) }}" class="mt-2 w-full px-5 py-3">Sign up</x-button>
+        <x-button href="{{ route('login', ['intent' => 'signup']) }}" class="mt-2 w-full">Get started</x-button>
     </div>
 </header>
