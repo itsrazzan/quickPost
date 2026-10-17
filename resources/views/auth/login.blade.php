@@ -5,6 +5,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <title>{{ $intent === 'signup' ? 'Sign up' : 'Login' }} - QuickPost</title>
         @vite(['resources/css/app.css', 'resources/js/app.js'])
+        @fonts
     </head>
     <body class="min-h-screen bg-neutral-100 text-neutral-800 antialiased">
         <header class="mx-auto flex max-w-6xl items-center justify-between px-5 py-5 sm:px-8">

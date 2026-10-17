@@ -7,6 +7,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <title>{{ $page }} - QuickPost</title>
         @vite(['resources/css/app.css', 'resources/js/app.js'])
+        @fonts
     </head>
     <body class="bg-neutral-100 text-neutral-800 antialiased">
         @include('partials.header')

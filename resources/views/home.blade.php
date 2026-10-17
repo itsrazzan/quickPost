@@ -22,7 +22,7 @@
 
 {{-- Hero --}}
 <section class="mx-auto max-w-5xl px-6 pt-20 text-center">
-    <h1 class="mx-auto max-w-3xl text-6xl font-bold leading-[1.05] tracking-tight text-balance text-neutral-900">
+    <h1 class="mx-auto max-w-3xl text-6xl font-light leading-[1.05] tracking-tight text-balance text-neutral-900">
         Schedule your social posts from one place
     </h1>
     <p class="mx-auto mt-6 max-w-xl text-lg text-neutral-600">
@@ -90,7 +90,7 @@
 
 {{-- Features --}}
 <section class="mx-auto mt-24 max-w-5xl px-6">
-    <h2 class="max-w-xl text-3xl font-bold tracking-tight text-neutral-900">
+    <h2 class="max-w-xl text-3xl font-semibold tracking-tight text-neutral-900">
         Less switching between apps, more time to write
     </h2>
 
@@ -109,7 +109,7 @@
 {{-- Closing call to action --}}
 <section class="mx-auto mt-24 max-w-5xl px-6">
     <div class="flex items-center justify-between gap-8 rounded-3xl bg-neutral-900 px-10 py-12">
-        <h2 class="max-w-md text-3xl font-bold tracking-tight text-white">
+        <h2 class="max-w-md text-3xl font-semibold tracking-tight text-white">
             QuickPost is still in progress
         </h2>
         <x-button variant="light" href="{{ route('about') }}" class="px-7 py-3.5 text-base">See what's done so far</x-button>

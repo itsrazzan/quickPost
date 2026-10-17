@@ -57,6 +57,16 @@
     }
 }
 
+/* Headings: Funnel Display per DESIGN.md Type; body stays Inter.
+   Base layer loses to utilities, so font-sans overrides per element. */
+@layer base {
+    h1,
+    h2,
+    h3 {
+        font-family: var(--font-display);
+    }
+}
+
 /* Scroll reveal: JS adds .is-visible once the element enters the viewport. */
 @layer components {
     [data-reveal] {

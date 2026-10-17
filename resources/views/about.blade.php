@@ -30,7 +30,7 @@
 
     {{-- Intro --}}
             <section class="mx-auto max-w-5xl px-6 pt-20">
-                <h1 class="max-w-3xl text-5xl font-bold leading-[1.1] tracking-tight text-balance text-neutral-900">
+                <h1 class="max-w-3xl text-5xl font-light leading-[1.1] tracking-tight text-balance text-neutral-900">
                     A scheduler for social posts, built to learn Laravel
                 </h1>
                 <p class="mt-6 max-w-2xl text-lg leading-relaxed text-neutral-600">
@@ -68,7 +68,7 @@
 
             {{-- Progress --}}
             <section class="mx-auto mt-16 max-w-5xl px-6">
-                <h2 class="text-2xl font-bold tracking-tight text-neutral-900">Where the project is</h2>
+                <h2 class="text-2xl font-semibold tracking-tight text-neutral-900">Where the project is</h2>
 
                 <ul class="mt-6 divide-y divide-neutral-100 rounded-2xl border border-neutral-200 bg-white px-8">
                     @foreach ($progress as $item)
@@ -84,7 +84,7 @@
 
             {{-- FAQ (native <details>, no JavaScript needed) --}}
             <section class="mx-auto mt-16 max-w-5xl px-6">
-                <h2 class="text-2xl font-bold tracking-tight text-neutral-900">Questions</h2>
+                <h2 class="text-2xl font-semibold tracking-tight text-neutral-900">Questions</h2>
 
                 <div class="mt-6 space-y-3">
                     @foreach ($faqs as $faq)

@@ -16,6 +16,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <title>@yield('title') - QuickPost</title>
         @vite(['resources/css/app.css', 'resources/js/app.js'])
+        @fonts
     </head>
     <body class="min-h-screen bg-neutral-100 text-neutral-800 antialiased">
         <header class="sticky top-0 z-20 border-b border-neutral-200 bg-white">

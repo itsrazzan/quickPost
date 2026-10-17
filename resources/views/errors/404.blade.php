@@ -7,13 +7,14 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <title>Page not found - QuickPost</title>
         @vite(['resources/css/app.css', 'resources/js/app.js'])
+        @fonts
     </head>
     <body class="bg-neutral-100 text-neutral-800 antialiased">
         @include('partials.header')
 
         <main class="mx-auto max-w-5xl px-6 pt-20">
             <div class="mx-auto max-w-xl rounded-3xl border border-neutral-200 bg-white px-12 py-14 text-center">
-                <p class="text-8xl font-bold tracking-tight text-neutral-900">404</p>
+                <p class="font-display text-8xl font-bold tracking-tight text-neutral-900">404</p>
 
                 <h1 class="mt-4 text-2xl font-bold tracking-tight text-neutral-900">
                     Page not found
