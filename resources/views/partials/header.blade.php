@@ -1,6 +1,6 @@
 {{-- resources/views/partials/header.blade.php --}}
 {{-- Floating glass pill: the page's only frosted surface (DESIGN.md).
-     Expects named routes: 'home' and 'about'. --}}
+     Expects named routes: 'home', 'about' and 'login'. --}}
 @php
     $links = [
         ['label' => 'Home', 'route' => 'home'],
@@ -42,8 +42,12 @@
                 @endforeach
             </ul>
 
-            {{-- Placeholder CTA: about is the honest destination until a real signup exists. --}}
-            <x-button href="{{ route('about') }}" class="hidden px-5 py-2.5 sm:inline-flex">Get started</x-button>
+            {{-- Auth CTAs: the demo workspace lives behind the login flow. --}}
+            <a href="{{ route('login', ['intent' => 'login']) }}"
+               class="hidden text-sm font-semibold text-neutral-700 transition duration-150 ease-ui hover:text-accent-strong md:inline-flex">
+                Login
+            </a>
+            <x-button href="{{ route('login', ['intent' => 'signup']) }}" class="hidden px-5 py-2.5 sm:inline-flex">Sign up</x-button>
 
             <button type="button"
                     data-menu-button
@@ -82,6 +86,10 @@
                 </li>
             @endforeach
         </ul>
-        <x-button href="{{ route('about') }}" class="mt-2 w-full px-5 py-3">Get started</x-button>
+        <a href="{{ route('login', ['intent' => 'login']) }}"
+           class="mt-2 block rounded-2xl px-4 py-3 text-center text-sm font-semibold text-neutral-700 transition duration-150 ease-ui hover:bg-neutral-100 hover:text-neutral-900">
+            Login
+        </a>
+        <x-button href="{{ route('login', ['intent' => 'signup']) }}" class="mt-2 w-full px-5 py-3">Sign up</x-button>
     </div>
 </header>
