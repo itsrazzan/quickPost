@@ -1,3 +1,9 @@
+{{-- resources/views/workspace/drafts.blade.php --}}
+
+{{-- 
+    Workspace Drafts View.
+    Lists unfinished post drafts saved for later publishing.
+--}}
 @extends('layouts.workspace')
 
 @section('title', 'Drafts')
@@ -8,6 +14,7 @@
 @section('content')
     <section class="rounded-2xl border border-neutral-200 bg-white p-5 sm:p-7"
              aria-labelledby="drafts-list-title">
+        {{-- Section header with filter action placeholder --}}
         <div class="flex flex-col justify-between gap-4 border-b border-neutral-200 pb-5 sm:flex-row sm:items-center">
             <div>
                 <h2 id="drafts-list-title" class="font-semibold text-neutral-900">All drafts</h2>
@@ -18,6 +25,7 @@
             </span>
         </div>
 
+        {{-- Empty state graphic and call-to-action --}}
         <div class="grid min-h-80 place-items-center py-10 text-center">
             <div>
                 <span class="mx-auto grid size-14 place-items-center rounded-2xl border border-neutral-200 bg-neutral-100 text-accent-strong">

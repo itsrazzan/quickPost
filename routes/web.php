@@ -15,16 +15,21 @@ Route::get('/', function () {
     return view('home');
 })->name('home');
 
+
+// Routes for Login or sign up page
 Route::get('/login', function (Request $request) {
+    // check if the session has a demo user name, if so redirect to dashboard
     if ($request->session()->has('demo_user_name')) {
         return to_route('dashboard');
     }
 
     $intent = $request->query('intent') === 'signup' ? 'signup' : 'login';
-
+    // if there is no session, then show the login page with the intent
     return view('auth.login', ['intent' => $intent]);
 })->name('login');
 
+
+// send post request for demo session
 Route::post('/demo-session', function (Request $request) {
     $request->validate([
         'intent' => ['required', 'in:login,signup'],
@@ -32,10 +37,13 @@ Route::post('/demo-session', function (Request $request) {
 
     $request->session()->regenerate();
     $request->session()->put('demo_user_name', 'Agil Razzan');
-
+    //redirect to dashboard after setting the session
     return to_route('dashboard');
 })->name('demo-session.store');
 
+
+//====Route for dashboard=====
+// check user session, if not redirect to login page
 Route::middleware(EnsureDemoUser::class)->group(function () {
     Route::get('/dashboard', function () {
         return view('dashboard');
@@ -65,13 +73,13 @@ Route::middleware(EnsureDemoUser::class)->group(function () {
     Route::get('/settings', function () {
         return view('workspace.settings');
     })->name('settings');
-
+    // Logout route
     Route::post('/logout', function (Request $request) {
         $request->session()->invalidate();
         $request->session()->regenerateToken();
 
         return to_route('home');
-    })->name('logout');
+    })->name('logout'); 
 });
 
 Route::get('/about', function () {

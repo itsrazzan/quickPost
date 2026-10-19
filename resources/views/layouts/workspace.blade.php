@@ -1,11 +1,18 @@
+{{-- resources/views/layouts/workspace.blade.php --}}
+
+{{-- 
+    Authenticated Workspace Layout.
+    Provides sidebar navigation, user session status, mobile scroll menu,
+    and placeholders for @yield('title'), @yield('page-title'), and @yield('content').
+--}}
 @php
     $workspaceLinks = [
-        ['label' => 'Dashboard', 'route' => 'dashboard', 'icon' => 'dashboard'],
-        ['label' => 'Analytics', 'route' => 'analytics', 'icon' => 'analytics'],
-        ['label' => 'Calendar', 'route' => 'calendar', 'icon' => 'calendar'],
-        ['label' => 'Drafts', 'route' => 'drafts', 'icon' => 'drafts'],
+        ['label' => 'Dashboard',     'route' => 'dashboard',     'icon' => 'dashboard'],
+        ['label' => 'Analytics',     'route' => 'analytics',     'icon' => 'analytics'],
+        ['label' => 'Calendar',      'route' => 'calendar',      'icon' => 'calendar'],
+        ['label' => 'Drafts',        'route' => 'drafts',        'icon' => 'drafts'],
         ['label' => 'Media library', 'route' => 'media-library', 'icon' => 'media'],
-        ['label' => 'My settings', 'route' => 'settings', 'icon' => 'settings'],
+        ['label' => 'My settings',   'route' => 'settings',      'icon' => 'settings'],
     ];
 @endphp
 
@@ -19,6 +26,7 @@
         @fonts
     </head>
     <body class="min-h-screen bg-neutral-100 text-neutral-800 antialiased">
+        {{-- Top workspace header bar --}}
         <header class="sticky top-0 z-20 border-b border-neutral-200 bg-white">
             <div class="flex h-16 items-center justify-between gap-4 px-4 sm:px-6 lg:px-8">
                 <a href="{{ route('dashboard') }}"
@@ -33,16 +41,19 @@
                     QuickPost
                 </a>
 
+                {{-- User profile avatar & logout action --}}
                 <div class="flex items-center gap-3 sm:gap-5">
                     <a href="{{ route('settings') }}"
                        class="flex items-center gap-2.5 rounded-xl px-2 py-1.5 transition hover:bg-neutral-100">
                         <span class="grid size-8 place-items-center rounded-full bg-orange-100 text-xs font-semibold text-accent-strong">
                             AR
                         </span>
+                        {{-- Read user name from active session --}}
                         <span class="hidden text-sm font-semibold text-neutral-800 sm:block">
                             {{ session('demo_user_name', 'Agil Razzan') }}
                         </span>
                     </a>
+                    {{-- Form-based logout with CSRF protection --}}
                     <form method="POST" action="{{ route('logout') }}">
                         @csrf
                         <button type="submit"
@@ -53,6 +64,7 @@
                 </div>
             </div>
 
+            {{-- Horizontal scroll navigation bar for mobile screens --}}
             <nav class="flex gap-1 overflow-x-auto border-t border-neutral-200 px-3 py-2 md:hidden"
                  aria-label="Workspace navigation">
                 @foreach ($workspaceLinks as $link)
@@ -68,7 +80,9 @@
             </nav>
         </header>
 
+        {{-- Main body: sidebar + content area --}}
         <div class="mx-auto flex max-w-[1600px] gap-8 px-4 py-5 sm:px-6 sm:py-8 lg:px-8">
+            {{-- Desktop sidebar navigation --}}
             <aside class="hidden w-60 shrink-0 md:block" aria-label="Workspace navigation">
                 <div class="sticky top-24">
                     <div class="mb-6 rounded-2xl border border-neutral-200 bg-white p-4">
@@ -90,6 +104,7 @@
                                             ? 'bg-white text-neutral-900'
                                             : 'text-neutral-600 hover:bg-white hover:text-neutral-900' }}">
                                         <span class="{{ $active ? 'text-accent-strong' : 'text-neutral-500' }}">
+                                            {{-- Render matching SVG icon per navigation route --}}
                                             @switch($link['icon'])
                                                 @case('dashboard')
                                                     <svg viewBox="0 0 24 24" class="size-5" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true">
@@ -146,7 +161,9 @@
                 </div>
             </aside>
 
+            {{-- Dynamic page view container --}}
             <main class="min-w-0 flex-1">
+                {{-- Header with eyebrow, page title, and description --}}
                 <div class="mb-6 flex flex-col justify-between gap-4 sm:flex-row sm:items-end">
                     <div>
                         <p class="text-sm font-medium text-accent-strong">@yield('eyebrow', 'Workspace')</p>
@@ -158,6 +175,7 @@
                     </span>
                 </div>
 
+                {{-- Child view contents injected here --}}
                 @yield('content')
             </main>
         </div>

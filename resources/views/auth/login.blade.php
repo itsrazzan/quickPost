@@ -1,13 +1,22 @@
+{{-- resources/views/auth/login.blade.php --}}
+
+{{-- 
+    Login and Sign Up authentication view.
+    Accepts an $intent variable ('login' or 'signup') to toggle headings,
+    active tab states, and form submission labels.
+--}}
 <!DOCTYPE html>
 <html lang="en">
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
+        {{-- Dynamic title based on authentication intent --}}
         <title>{{ $intent === 'signup' ? 'Sign up' : 'Login' }} - QuickPost</title>
         @vite(['resources/css/app.css', 'resources/js/app.js'])
         @fonts
     </head>
     <body class="min-h-screen bg-neutral-100 text-neutral-800 antialiased">
+        {{-- Minimal header with logo and return link --}}
         <header class="mx-auto flex max-w-6xl items-center justify-between px-5 py-5 sm:px-8">
             <a href="{{ route('home') }}"
                class="flex items-center gap-2.5 text-lg font-bold tracking-tight text-neutral-900">
@@ -26,6 +35,7 @@
             </a>
         </header>
 
+        {{-- Centered authentication card --}}
         <main class="grid min-h-[calc(100vh-5rem)] place-items-center px-5 pb-12 sm:px-8">
             <section class="w-full max-w-md rounded-3xl border border-neutral-200 bg-white p-6 sm:p-9">
                 <div class="text-center">
@@ -44,6 +54,7 @@
                     </p>
                 </div>
 
+                {{-- Tab toggle: switches between Login and Sign up modes --}}
                 <div class="mt-7 grid grid-cols-2 rounded-xl bg-neutral-100 p-1">
                     <a href="{{ route('login', ['intent' => 'login']) }}"
                        @if ($intent === 'login') aria-current="page" @endif
@@ -59,6 +70,7 @@
                     </a>
                 </div>
 
+                {{-- Demo mode informational notice --}}
                 <div class="mt-6 rounded-xl border border-neutral-200 bg-neutral-100 px-4 py-3">
                     <p class="text-sm font-semibold text-neutral-900">Demo mode</p>
                     <p class="mt-1 text-sm leading-relaxed text-neutral-600">
@@ -66,6 +78,7 @@
                     </p>
                 </div>
 
+                {{-- Demo login form: sets temporary session in backend --}}
                 <form method="POST" action="{{ route('demo-session.store') }}" class="mt-6">
                     @csrf
                     <input type="hidden" name="intent" value="{{ $intent }}">

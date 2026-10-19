@@ -1,5 +1,9 @@
 {{-- resources/views/comingsoon.blade.php --}}
-{{-- Shared placeholder for pages that have no design yet: program, ourteam, contactus. --}}
+
+{{-- 
+    Shared placeholder template for pages under development.
+    Receives $page variable indicating the current route's page title.
+--}}
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -10,8 +14,10 @@
         @fonts
     </head>
     <body class="bg-neutral-100 text-neutral-800 antialiased">
+        {{-- Navigation header --}}
         @include('partials.header')
 
+        {{-- Centered placeholder notice --}}
         <main class="mx-auto max-w-5xl px-6 pt-20">
             <div class="mx-auto max-w-xl rounded-3xl border border-neutral-200 bg-white px-12 py-14 text-center">
                 <h1 class="text-3xl font-bold tracking-tight text-neutral-900">
@@ -28,6 +34,7 @@
             </div>
         </main>
 
+        {{-- Footer --}}
         @include('partials.footer')
     </body>
 </html>

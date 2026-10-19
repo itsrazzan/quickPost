@@ -1,3 +1,10 @@
+{{-- resources/views/workspace/calendar.blade.php --}}
+
+{{-- 
+    Workspace Monthly Calendar View.
+    Receives $calendarMonth (CarbonImmutable instance) from the controller or route closure.
+    Computes offset padding for weekday alignment and provides previous/next month navigation links.
+--}}
 @extends('layouts.workspace')
 
 @section('title', 'Calendar')
@@ -7,16 +14,19 @@
 
 @section('content')
     @php
+        // Pad beginning of month array to align with day of week (0 = Sunday)
         $calendarDays = array_merge(
             array_fill(0, $calendarMonth->dayOfWeek, null),
             range(1, $calendarMonth->daysInMonth),
         );
+        // Pad end of month to complete full 7-column rows
         $calendarDays = array_pad($calendarDays, (int) ceil(count($calendarDays) / 7) * 7, null);
         $weekdays = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
     @endphp
 
     <section class="rounded-2xl border border-neutral-200 bg-white p-5 sm:p-7"
              aria-labelledby="month-title">
+        {{-- Calendar Header: Month/Year title and month traversal controls --}}
         <div class="flex flex-wrap items-center justify-between gap-4 border-b border-neutral-200 pb-5">
             <div>
                 <h2 id="month-title" class="text-xl font-semibold text-neutral-900">
@@ -24,6 +34,7 @@
                 </h2>
                 <p class="mt-1 text-sm text-neutral-500">Monthly view</p>
             </div>
+            {{-- Traversal buttons querying previous, current, or next month in 'Y-m' format --}}
             <div class="flex items-center gap-2">
                 <a href="{{ route('calendar', ['month' => $calendarMonth->subMonth()->format('Y-m')]) }}"
                    aria-label="Previous month"
@@ -46,6 +57,7 @@
             </div>
         </div>
 
+        {{-- 7-column calendar day grid --}}
         <div class="mt-5 grid grid-cols-7 gap-1.5 sm:gap-2">
             @foreach ($weekdays as $weekday)
                 <span class="pb-2 text-center text-xs font-semibold text-neutral-500 sm:text-sm">{{ $weekday }}</span>
@@ -53,6 +65,7 @@
             @foreach ($calendarDays as $day)
                 @if ($day)
                     @php($date = $calendarMonth->setDay($day))
+                    {{-- Highlight current day if it matches system today --}}
                     <div @if ($date->isToday()) aria-current="date" @endif
                          class="flex min-h-14 flex-col items-center justify-center rounded-lg border p-1 text-sm
                          {{ $date->isToday()
@@ -62,6 +75,7 @@
                         <span>{{ $day }}</span>
                     </div>
                 @else
+                    {{-- Empty offset cell --}}
                     <div aria-hidden="true" class="min-h-14 rounded-lg bg-neutral-100 sm:min-h-20"></div>
                 @endif
             @endforeach

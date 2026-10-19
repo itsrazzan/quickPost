@@ -1,3 +1,9 @@
+{{-- resources/views/workspace/analytics.blade.php --}}
+
+{{-- 
+    Workspace Analytics View.
+    Displays post reach metrics, engagement breakdown, and empty preview state.
+--}}
 @extends('layouts.workspace')
 
 @section('title', 'Analytics')
@@ -7,6 +13,7 @@
 
 @section('content')
     <div class="grid gap-5 xl:grid-cols-[minmax(0,1.5fr)_minmax(18rem,1fr)]">
+        {{-- Section 1: Post reach chart preview --}}
         <section class="rounded-2xl border border-neutral-200 bg-white p-5 sm:p-6"
                  aria-labelledby="reach-title">
             <div class="flex flex-col justify-between gap-3 border-b border-neutral-200 pb-4 sm:flex-row sm:items-center">
@@ -34,6 +41,7 @@
             </div>
         </section>
 
+        {{-- Section 2: Engagement overview key metrics list --}}
         <section class="rounded-2xl border border-neutral-200 bg-white p-5 sm:p-6"
                  aria-labelledby="metrics-title">
             <h2 id="metrics-title" class="font-semibold text-neutral-900">Engagement overview</h2>

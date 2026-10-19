@@ -1,3 +1,9 @@
+{{-- resources/views/workspace/media-library.blade.php --}}
+
+{{-- 
+    Workspace Media Library View.
+    Manages image and media assets attached to social posts.
+--}}
 @extends('layouts.workspace')
 
 @section('title', 'Media library')
@@ -8,6 +14,7 @@
 @section('content')
     <section class="rounded-2xl border border-neutral-200 bg-white p-5 sm:p-7"
              aria-labelledby="media-title">
+        {{-- Section header with add media action --}}
         <div class="flex flex-col justify-between gap-4 border-b border-neutral-200 pb-5 sm:flex-row sm:items-center">
             <div>
                 <h2 id="media-title" class="font-semibold text-neutral-900">Your media</h2>
@@ -18,6 +25,7 @@
             </span>
         </div>
 
+        {{-- Filter toolbar controls (search, file type, sort) --}}
         <div class="mt-5 grid gap-3 sm:grid-cols-3">
             <span class="rounded-xl border border-neutral-200 px-3 py-2 text-sm text-neutral-500">
                 Search files (soon)
@@ -30,6 +38,7 @@
             </span>
         </div>
 
+        {{-- Empty media library placeholder --}}
         <div class="grid min-h-80 place-items-center py-10 text-center">
             <div>
                 <span class="mx-auto grid size-14 place-items-center rounded-2xl border border-neutral-200 bg-neutral-100 text-accent-strong">

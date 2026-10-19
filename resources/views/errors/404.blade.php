@@ -1,5 +1,10 @@
 {{-- resources/views/errors/404.blade.php --}}
-{{-- Laravel shows this file automatically for any 404 (unknown URL, abort(404), missing model). --}}
+
+{{-- 
+    Custom 404 error page.
+    Triggered automatically by Laravel when an unhandled URL, abort(404),
+    or missing route model binding occurs.
+--}}
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -12,6 +17,7 @@
     <body class="bg-neutral-100 text-neutral-800 antialiased">
         @include('partials.header')
 
+        {{-- 404 error card --}}
         <main class="mx-auto max-w-5xl px-6 pt-20">
             <div class="mx-auto max-w-xl rounded-3xl border border-neutral-200 bg-white px-12 py-14 text-center">
                 <p class="font-display text-8xl font-bold tracking-tight text-neutral-900">404</p>
