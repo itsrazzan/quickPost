@@ -9,7 +9,7 @@
 @section('title', 'My settings')
 @section('eyebrow', 'Preferences')
 @section('page-title', 'My settings')
-@section('page-description', 'Manage the profile and preferences for your demo workspace.')
+@section('page-description', 'Review your account and workspace preferences.')
 
 @section('content')
     <div class="grid gap-5 xl:grid-cols-[15rem_minmax(0,1fr)]">
@@ -34,17 +34,17 @@
                      aria-labelledby="personal-info-title">
                 <div class="border-b border-neutral-200 pb-4">
                     <h2 id="personal-info-title" class="font-semibold text-neutral-900">Personal info</h2>
-                    <p class="mt-1 text-sm text-neutral-500">This sample profile is not saved to a database.</p>
+                    <p class="mt-1 text-sm text-neutral-500">Account details from your registration.</p>
                 </div>
 
                 {{-- User avatar display --}}
                 <div class="mt-5 flex flex-col gap-5 sm:flex-row sm:items-center">
                     <span class="grid size-16 shrink-0 place-items-center rounded-full bg-orange-100 text-lg font-semibold text-accent-strong">
-                        AR
+                        {{ mb_strtoupper(mb_substr(auth()->user()->name, 0, 2)) }}
                     </span>
                     <div>
-                        <p class="font-semibold text-neutral-900">Agil Razzan</p>
-                        <p class="mt-1 text-sm text-neutral-500">QuickPost demo workspace</p>
+                        <p class="font-semibold text-neutral-900">{{ auth()->user()->name }}</p>
+                        <p class="mt-1 text-sm text-neutral-500">QuickPost account</p>
                     </div>
                 </div>
 
@@ -52,11 +52,11 @@
                 <dl class="mt-6 grid gap-4 sm:grid-cols-2">
                     <div class="rounded-xl border border-neutral-200 p-4">
                         <dt class="text-xs font-medium text-neutral-500">Full name</dt>
-                        <dd class="mt-1 font-medium text-neutral-900">Agil Razzan</dd>
+                        <dd class="mt-1 font-medium text-neutral-900">{{ auth()->user()->name }}</dd>
                     </div>
                     <div class="rounded-xl border border-neutral-200 p-4">
                         <dt class="text-xs font-medium text-neutral-500">Email</dt>
-                        <dd class="mt-1 font-medium text-neutral-900">Not connected</dd>
+                        <dd class="mt-1 break-words font-medium text-neutral-900">{{ auth()->user()->email }}</dd>
                     </div>
                     <div class="rounded-xl border border-neutral-200 p-4">
                         <dt class="text-xs font-medium text-neutral-500">Phone</dt>

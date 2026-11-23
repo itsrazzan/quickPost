@@ -6,6 +6,9 @@ QuickPost is a Laravel web application for writing content once and scheduling i
 everywhere. This repository is built as part of a Web Framework course assignment,
 covering the fundamentals of Laravel routing and Blade templating.
 
+Users can register, sign in, and save drafts to their own accounts. Social account
+connections and publishing are not implemented yet.
+
 # Tech Stack
 
 - PHP ^8.3

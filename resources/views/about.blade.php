@@ -12,7 +12,7 @@
     $progress = [
         ['task' => 'Header, footer, and home page', 'status' => 'done'],
         ['task' => 'About page and custom 404 page', 'status' => 'done'],
-        ['task' => 'Create-post form',               'status' => 'next'],
+        ['task' => 'Account registration and draft saving', 'status' => 'done'],
         ['task' => 'Publishing to real platforms',   'status' => 'later'],
     ];
 
@@ -28,7 +28,7 @@
         ['q' => 'Is QuickPost a real product?',
          'a' => 'Not yet. It is a learning project for now, built to practice Laravel and Blade.'],
         ['q' => 'Which platforms does it support?',
-         'a' => 'None yet. The pages you see are the interface only; nothing is published anywhere.'],
+         'a' => 'Social platform connections and publishing are not implemented yet. You can save drafts to your account.'],
         ['q' => 'What is it built with?',
          'a' => 'Laravel for the backend, Blade for the views, and Tailwind CSS for the styling.'],
     ];

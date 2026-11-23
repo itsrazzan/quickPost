@@ -31,3 +31,17 @@ if (menuButton && menuPanel) {
         menuPanel.hidden = open;
     });
 }
+
+document.querySelectorAll('[data-loading-form]').forEach((form) => {
+    form.addEventListener('submit', () => {
+        const button = form.querySelector('[data-loading-button]');
+        const label = button?.querySelector('[data-button-label]');
+
+        if (!button || !label || button.disabled) {
+            return;
+        }
+
+        button.disabled = true;
+        label.textContent = button.dataset.loadingLabel ?? label.textContent;
+    });
+});

@@ -9,10 +9,10 @@ small shadows, and a signature motion set. The brand stays QuickPost: one warm
 orange accent on a neutral canvas, honest copy, no invented facts.
 
 ## Status
-Learning project: the interface exists, the publishing does not. Copy admits this
-plainly (the About FAQ is the register to match). Previews are labeled as
-previews, and unbuilt features appear as "(soon)" text, never as dead buttons.
-Platform lists say "planned", because nothing is published anywhere yet.
+Learning project: account registration and saved drafts work, but social account
+connections and publishing do not. Copy admits this plainly (the About FAQ is the
+register to match). Previews are labeled as previews, and unbuilt features appear
+as "(soon)" text, never as dead buttons. Nothing is published anywhere yet.
 
 ## Voice
 Plain, specific, unhyped. Short sentences. No buzzwords ("seamless", "AI-powered"),

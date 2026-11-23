@@ -122,10 +122,17 @@
         </div>
 
         <ul class="divide-y divide-neutral-200">
-            @foreach (['Drafts', 'Scheduled posts', 'Published posts'] as $status)
+            <li class="flex items-center justify-between gap-4 py-4">
+                <a href="{{ route('drafts') }}"
+                   class="min-h-11 text-sm font-medium text-neutral-800 underline decoration-neutral-400 underline-offset-4 focus-visible:outline-3 focus-visible:outline-offset-2 focus-visible:outline-accent">
+                    Drafts
+                </a>
+                <span class="text-sm font-medium text-neutral-800">{{ $draftCount }}</span>
+            </li>
+            @foreach (['Scheduled posts', 'Published posts'] as $status)
                 <li class="flex items-center justify-between gap-4 py-4">
                     <span class="text-sm font-medium text-neutral-700">{{ $status }}</span>
-                    <span class="text-xs font-medium text-neutral-500">(soon)</span>
+                    <span class="text-xs font-medium text-neutral-600">(soon)</span>
                 </li>
             @endforeach
         </ul>
@@ -153,7 +160,10 @@
             <p class="mt-1 max-w-xs text-sm leading-relaxed text-neutral-500">
                 Scheduled content will appear here once post scheduling is available.
             </p>
-            <span class="mt-4 text-sm font-medium text-accent-strong">Create a post (soon)</span>
+            <a href="{{ route('drafts.create') }}"
+               class="mt-4 inline-flex min-h-11 items-center justify-center rounded-full bg-accent-strong px-5 py-2.5 text-sm font-semibold text-white transition hover:bg-accent-deep focus-visible:outline-3 focus-visible:outline-offset-3 focus-visible:outline-accent">
+                Create a draft
+            </a>
         </div>
     </section>
 </div>

@@ -1,6 +1,7 @@
 <?php
 
-use App\Http\Middleware\EnsureDemoUser;
+use App\Http\Controllers\AuthController;
+use App\Http\Controllers\ContentController;
 use Carbon\CarbonImmutable;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -15,38 +16,20 @@ Route::get('/', function () {
     return view('home');
 })->name('home');
 
+Route::get('/login', [AuthController::class, 'create'])->name('login');
 
-// Routes for Login or sign up page
-Route::get('/login', function (Request $request) {
-    // check if the session has a demo user name, if so redirect to dashboard
-    if ($request->session()->has('demo_user_name')) {
-        return to_route('dashboard');
-    }
+Route::middleware('guest')->group(function () {
+    Route::post('/login', [AuthController::class, 'login'])
+        ->middleware('throttle:login')
+        ->name('login.store');
+    Route::post('/register', [AuthController::class, 'register'])->name('register.store');
+});
 
-    $intent = $request->query('intent') === 'signup' ? 'signup' : 'login';
-    // if there is no session, then show the login page with the intent
-    return view('auth.login', ['intent' => $intent]);
-})->name('login');
+Route::middleware('auth')->group(function () {
+    Route::get('/dashboard', function (Request $request) {
+        $draftCount = $request->user()->contents()->where('status', 'draft')->count();
 
-
-// send post request for demo session
-Route::post('/demo-session', function (Request $request) {
-    $request->validate([
-        'intent' => ['required', 'in:login,signup'],
-    ]);
-
-    $request->session()->regenerate();
-    $request->session()->put('demo_user_name', 'Agil Razzan');
-    //redirect to dashboard after setting the session
-    return to_route('dashboard');
-})->name('demo-session.store');
-
-
-//====Route for dashboard=====
-// check user session, if not redirect to login page
-Route::middleware(EnsureDemoUser::class)->group(function () {
-    Route::get('/dashboard', function () {
-        return view('dashboard');
+        return view('dashboard', ['draftCount' => $draftCount]);
     })->name('dashboard');
 
     Route::get('/analytics', function () {
@@ -62,9 +45,19 @@ Route::middleware(EnsureDemoUser::class)->group(function () {
         return view('workspace.calendar', ['calendarMonth' => $calendarMonth]);
     })->name('calendar');
 
-    Route::get('/drafts', function () {
-        return view('workspace.drafts');
-    })->name('drafts');
+    Route::resource('drafts', ContentController::class)
+        ->except('show')
+        ->names([
+            'index' => 'drafts',
+            'create' => 'drafts.create',
+            'store' => 'drafts.store',
+            'edit' => 'drafts.edit',
+            'update' => 'drafts.update',
+            'destroy' => 'drafts.destroy',
+        ]);
+    Route::post('/drafts/{draftId}/restore', [ContentController::class, 'restore'])
+        ->whereNumber('draftId')
+        ->name('drafts.restore');
 
     Route::get('/media-library', function () {
         return view('workspace.media-library');
@@ -73,13 +66,7 @@ Route::middleware(EnsureDemoUser::class)->group(function () {
     Route::get('/settings', function () {
         return view('workspace.settings');
     })->name('settings');
-    // Logout route
-    Route::post('/logout', function (Request $request) {
-        $request->session()->invalidate();
-        $request->session()->regenerateToken();
-
-        return to_route('home');
-    })->name('logout'); 
+    Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 });
 
 Route::get('/about', function () {

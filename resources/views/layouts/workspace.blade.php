@@ -46,11 +46,11 @@
                     <a href="{{ route('settings') }}"
                        class="flex items-center gap-2.5 rounded-xl px-2 py-1.5 transition hover:bg-neutral-100">
                         <span class="grid size-8 place-items-center rounded-full bg-orange-100 text-xs font-semibold text-accent-strong">
-                            AR
+                            {{ collect(explode(' ', trim(auth()->user()->name)))->filter()->take(2)->map(fn (string $part): string => mb_strtoupper(mb_substr($part, 0, 1)))->implode('') }}
                         </span>
                         {{-- Read user name from active session --}}
                         <span class="hidden text-sm font-semibold text-neutral-800 sm:block">
-                            {{ session('demo_user_name', 'Agil Razzan') }}
+                            {{ auth()->user()->name }}
                         </span>
                     </a>
                     {{-- Form-based logout with CSRF protection --}}
@@ -153,9 +153,9 @@
                     </nav>
 
                     <div class="mt-8 rounded-2xl border border-neutral-200 bg-white p-4">
-                        <p class="text-sm font-semibold text-neutral-900">Demo workspace</p>
+                        <p class="text-sm font-semibold text-neutral-900">Personal workspace</p>
                         <p class="mt-1 text-xs leading-relaxed text-neutral-500">
-                            Pages are previews. Your changes are not saved to a database.
+                            Drafts are saved to your account. Other workspace pages are previews.
                         </p>
                     </div>
                 </div>
@@ -171,7 +171,7 @@
                         <p class="mt-2 text-sm text-neutral-600">@yield('page-description')</p>
                     </div>
                     <span class="inline-flex w-fit items-center rounded-full border border-neutral-200 bg-white px-3 py-1.5 text-xs font-medium text-neutral-600">
-                        Demo preview
+                        Drafts save to your account
                     </span>
                 </div>
 
