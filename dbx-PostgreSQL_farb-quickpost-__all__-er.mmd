@@ -1,0 +1,277 @@
+erDiagram
+  activity_logs {
+    bigint id PK
+    bigint user_id
+    character_varying255 action
+    character_varying255 description
+    character_varying45 ip_address
+    text user_agent
+    json metadata
+    timestamp0_without_time_zone created_at
+  }
+  analytics {
+    bigint id PK
+    bigint user_id
+    bigint content_id
+    bigint social_account_id
+    date metric_date
+    bigint reach
+    bigint impressions
+    bigint likes
+    bigint comments
+    bigint shares
+    bigint saves
+    numeric52 engagement_rate
+    boolean is_demo
+    timestamp0_without_time_zone created_at
+    timestamp0_without_time_zone updated_at
+  }
+  app_notifications {
+    bigint id PK
+    bigint user_id
+    character_varying255 type
+    character_varying255 title
+    text message
+    character_varying255 action_url
+    timestamp0_without_time_zone read_at
+    timestamp0_without_time_zone created_at
+    timestamp0_without_time_zone updated_at
+  }
+  businesses {
+    bigint id PK
+    bigint user_id
+    character_varying255 name
+    character_varying255 industry
+    character_varying255 timezone
+    json goals
+    timestamp0_without_time_zone created_at
+    timestamp0_without_time_zone updated_at
+  }
+  cache {
+    character_varying255 key PK
+    text value
+    bigint expiration
+  }
+  cache_locks {
+    character_varying255 key PK
+    character_varying255 owner
+    bigint expiration
+  }
+  content_media {
+    bigint id PK
+    bigint content_id
+    bigint media_id
+    integer order
+    timestamp0_without_time_zone created_at
+    timestamp0_without_time_zone updated_at
+  }
+  content_platforms {
+    bigint id PK
+    bigint content_id
+    bigint social_account_id
+    character_varying255 status
+    character_varying255 external_post_id
+    text error_message
+    timestamp0_without_time_zone published_at
+    timestamp0_without_time_zone created_at
+    timestamp0_without_time_zone updated_at
+  }
+  contents {
+    bigint id PK
+    bigint user_id
+    character_varying255 title
+    text caption
+    text first_comment
+    character_varying255 status
+    timestamp0_without_time_zone scheduled_at
+    timestamp0_without_time_zone published_at
+    character_varying255 timezone
+    timestamp0_without_time_zone created_at
+    timestamp0_without_time_zone updated_at
+  }
+  failed_jobs {
+    bigint id PK
+    character_varying255 uuid
+    character_varying255 connection
+    character_varying255 queue
+    text payload
+    text exception
+    timestamp0_without_time_zone failed_at
+  }
+  job_batches {
+    character_varying255 id PK
+    character_varying255 name
+    integer total_jobs
+    integer pending_jobs
+    integer failed_jobs
+    text failed_job_ids
+    text options
+    integer cancelled_at
+    integer created_at
+    integer finished_at
+  }
+  jobs {
+    bigint id PK
+    character_varying255 queue
+    text payload
+    smallint attempts
+    integer reserved_at
+    integer available_at
+    integer created_at
+  }
+  media {
+    bigint id PK
+    bigint user_id
+    character_varying255 disk
+    character_varying255 file_name
+    character_varying255 file_path
+    character_varying255 mime_type
+    bigint file_size
+    json dimensions
+    json metadata
+    timestamp0_without_time_zone created_at
+    timestamp0_without_time_zone updated_at
+  }
+  migrations {
+    integer id PK
+    character_varying255 migration
+    integer batch
+  }
+  password_reset_tokens {
+    character_varying255 email PK
+    character_varying255 token
+    timestamp0_without_time_zone created_at
+  }
+  publication_logs {
+    bigint id PK
+    bigint content_id
+    bigint social_account_id
+    character_varying255 platform
+    character_varying255 status
+    timestamp0_without_time_zone attempted_at
+    character_varying255 external_post_id
+    character_varying255 response_message
+    text error_message
+    json response_payload
+    boolean is_demo
+    timestamp0_without_time_zone created_at
+    timestamp0_without_time_zone updated_at
+  }
+  scheduled_posts {
+    bigint id PK
+    bigint content_id
+    timestamp0_without_time_zone scheduled_at
+    character_varying255 status
+    smallint attempts
+    timestamp0_without_time_zone last_attempt_at
+    text error_message
+    timestamp0_without_time_zone created_at
+    timestamp0_without_time_zone updated_at
+  }
+  sessions {
+    character_varying255 id PK
+    bigint user_id
+    character_varying45 ip_address
+    text user_agent
+    text payload
+    integer last_activity
+  }
+  social_accounts {
+    bigint id PK
+    bigint user_id
+    bigint social_platform_id
+    character_varying255 account_name
+    character_varying255 username
+    character_varying255 avatar_url
+    text access_token
+    text refresh_token
+    timestamp0_without_time_zone token_expires_at
+    character_varying255 status
+    boolean is_demo
+    timestamp0_without_time_zone last_synced_at
+    timestamp0_without_time_zone created_at
+    timestamp0_without_time_zone updated_at
+  }
+  social_platforms {
+    bigint id PK
+    character_varying255 slug
+    character_varying255 name
+    character_varying255 icon
+    character_varying20 color
+    boolean is_active
+    json supported_media_types
+    integer caption_character_limit
+    integer max_media_count
+    timestamp0_without_time_zone created_at
+    timestamp0_without_time_zone updated_at
+  }
+  user_profiles {
+    bigint id PK
+    bigint user_id
+    character_varying255 avatar_url
+    text bio
+    character_varying255 phone
+    character_varying255 business_name
+    character_varying255 business_type
+    character_varying255 timezone
+    timestamp0_without_time_zone onboarding_completed_at
+    timestamp0_without_time_zone created_at
+    timestamp0_without_time_zone updated_at
+  }
+  user_settings {
+    bigint id PK
+    bigint user_id
+    character_varying255 theme
+    character_varying255 timezone
+    boolean email_notifications
+    boolean notify_publish_success
+    boolean notify_publish_failure
+    boolean notify_scheduled_reminder
+    timestamp0_without_time_zone created_at
+    timestamp0_without_time_zone updated_at
+  }
+  users {
+    bigint id PK
+    character_varying255 name
+    character_varying255 email
+    timestamp0_without_time_zone email_verified_at
+    character_varying255 password
+    character_varying100 remember_token
+    timestamp0_without_time_zone created_at
+    timestamp0_without_time_zone updated_at
+  }
+  public_activity_logs }o--|| public_users : "user_id -> id"
+  public_analytics }o--|| public_contents : "content_id -> id"
+  public_analytics }o--|| public_social_accounts : "social_account_id -> id"
+  public_analytics }o--|| public_users : "user_id -> id"
+  public_app_notifications }o--|| public_users : "user_id -> id"
+  public_businesses }o--|| public_users : "user_id -> id"
+  public_content_media }o--|| public_contents : "content_id -> id"
+  public_content_media }o--|| public_media : "media_id -> id"
+  public_content_platforms }o--|| public_contents : "content_id -> id"
+  public_content_platforms }o--|| public_social_accounts : "social_account_id -> id"
+  public_contents }o--|| public_users : "user_id -> id"
+  public_media }o--|| public_users : "user_id -> id"
+  public_publication_logs }o--|| public_contents : "content_id -> id"
+  public_publication_logs }o--|| public_social_accounts : "social_account_id -> id"
+  public_scheduled_posts }o--|| public_contents : "content_id -> id"
+  public_social_accounts }o--|| public_social_platforms : "social_platform_id -> id"
+  public_social_accounts }o--|| public_users : "user_id -> id"
+  public_user_profiles ||--|| public_users : "user_id -> id"
+  public_user_settings ||--|| public_users : "user_id -> id"
+  public_activity_logs }o--|| public_user_profiles : "user_id -> id"
+  public_analytics }o--|| public_user_profiles : "user_id -> id"
+  public_analytics }o--|| public_content_media : "content_id -> id"
+  public_app_notifications }o--|| public_user_profiles : "user_id -> id"
+  public_businesses }o--|| public_user_profiles : "user_id -> id"
+  public_content_media }o--|| public_content_media : "content_id -> id"
+  public_content_platforms }o--|| public_content_media : "content_id -> id"
+  public_contents }o--|| public_user_profiles : "user_id -> id"
+  public_failed_jobs }o--|| public_businesses : "uuid -> id"
+  public_media }o--|| public_user_profiles : "user_id -> id"
+  public_publication_logs }o--|| public_content_media : "content_id -> id"
+  public_scheduled_posts }o--|| public_content_media : "content_id -> id"
+  public_sessions }o--|| public_user_profiles : "user_id -> id"
+  public_social_accounts }o--|| public_user_profiles : "user_id -> id"
+  public_user_profiles }o--|| public_user_profiles : "user_id -> id"
+  public_user_settings }o--|| public_user_profiles : "user_id -> id"
