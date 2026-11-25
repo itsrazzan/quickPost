@@ -23,9 +23,10 @@
             <p class="flex items-center justify-between px-3 py-2.5 text-sm text-neutral-500">
                 Preferences <span class="text-xs">(soon)</span>
             </p>
-            <p class="flex items-center justify-between px-3 py-2.5 text-sm text-neutral-500">
-                Connected accounts <span class="text-xs">(soon)</span>
-            </p>
+            <a href="{{ route('accounts') }}"
+               class="flex items-center justify-between rounded-xl px-3 py-2.5 text-sm font-medium text-neutral-700 transition hover:bg-neutral-100">
+                Connected accounts
+            </a>
         </aside>
 
         <div class="space-y-5">
