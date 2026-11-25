@@ -155,4 +155,83 @@ class ContentControllerTest extends TestCase
         $this->assertTrue(Media::withTrashed()->findOrFail($media->id)->trashed());
         $this->assertTrue(SocialAccount::withTrashed()->findOrFail($account->id)->trashed());
     }
+
+    public function test_user_can_attach_owned_media_to_a_draft(): void
+    {
+        $user = User::factory()->create();
+        $first = Media::factory()->for($user)->create();
+        $second = Media::factory()->for($user)->create();
+
+        $this->actingAs($user)->post(route('drafts.store'), [
+            'title' => 'Draft with media',
+            'media' => [$second->id, $first->id],
+        ])->assertRedirect(route('drafts'));
+
+        $draft = $user->contents()->where('title', 'Draft with media')->firstOrFail();
+
+        // Urutan pivot mengikuti urutan pilihan di form.
+        $this->assertDatabaseHas('content_media', [
+            'content_id' => $draft->id,
+            'media_id' => $second->id,
+            'order' => 0,
+        ]);
+        $this->assertDatabaseHas('content_media', [
+            'content_id' => $draft->id,
+            'media_id' => $first->id,
+            'order' => 1,
+        ]);
+    }
+
+    public function test_user_cannot_attach_another_users_media(): void
+    {
+        $user = User::factory()->create();
+        $otherMedia = Media::factory()->create();
+
+        $this->actingAs($user)
+            ->from(route('drafts.create'))
+            ->post(route('drafts.store'), [
+                'title' => 'Sneaky draft',
+                'media' => [$otherMedia->id],
+            ])
+            ->assertRedirect(route('drafts.create'))
+            ->assertSessionHasErrors('media.0');
+
+        $this->assertDatabaseCount('content_media', 0);
+    }
+
+    public function test_updating_a_draft_syncs_attached_media(): void
+    {
+        $user = User::factory()->create();
+        $draft = Content::factory()->for($user)->create();
+        $keep = Media::factory()->for($user)->create();
+        $remove = Media::factory()->for($user)->create();
+        $add = Media::factory()->for($user)->create();
+
+        $draft->media()->sync([
+            $remove->id => ['order' => 0],
+            $keep->id => ['order' => 1],
+        ]);
+
+        $this->actingAs($user)->put(route('drafts.update', $draft), [
+            'title' => $draft->title,
+            'caption' => $draft->caption,
+            'media' => [$keep->id, $add->id],
+        ])->assertRedirect(route('drafts'));
+
+        // Media yang dilepas hilang dari pivot; sisanya mengikuti urutan baru.
+        $this->assertDatabaseMissing('content_media', [
+            'content_id' => $draft->id,
+            'media_id' => $remove->id,
+        ]);
+        $this->assertDatabaseHas('content_media', [
+            'content_id' => $draft->id,
+            'media_id' => $keep->id,
+            'order' => 0,
+        ]);
+        $this->assertDatabaseHas('content_media', [
+            'content_id' => $draft->id,
+            'media_id' => $add->id,
+            'order' => 1,
+        ]);
+    }
 }
