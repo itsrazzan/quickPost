@@ -55,6 +55,41 @@
                 <p class="mt-1.5 text-xs text-neutral-600">Enter a title, a caption, or both.</p>
             </div>
 
+            {{-- Pilihan media: centang thumbnail untuk melampirkan ke draft --}}
+            <div>
+                <span class="block text-sm font-medium text-neutral-800">Media</span>
+
+                @error('media')
+                    <p class="mt-1.5 text-sm text-red-700">{{ $message }}</p>
+                @enderror
+
+                @if ($mediaItems->isEmpty())
+                    <p class="mt-1.5 text-sm text-neutral-600">
+                        No media yet.
+                        <a href="{{ route('media-library') }}" class="font-medium text-accent-strong underline underline-offset-4">Upload in Media library</a>.
+                    </p>
+                @else
+                    <div class="mt-2 grid grid-cols-3 gap-2 sm:grid-cols-4">
+                        @foreach ($mediaItems as $media)
+                            <label class="relative block cursor-pointer overflow-hidden rounded-xl border border-neutral-200 focus-within:outline-3 focus-within:outline-offset-2 focus-within:outline-accent">
+                                <input type="checkbox"
+                                       name="media[]"
+                                       value="{{ $media->id }}"
+                                       @checked(in_array($media->id, $selectedMediaIds))
+                                       class="peer sr-only">
+                                <img src="{{ Storage::disk($media->disk)->url($media->file_path) }}"
+                                     alt="{{ $media->file_name }}"
+                                     loading="lazy"
+                                     class="aspect-square w-full object-cover opacity-70 transition peer-checked:opacity-100 peer-checked:ring-2 peer-checked:ring-inset peer-checked:ring-accent">
+                            </label>
+                        @endforeach
+                    </div>
+                    @error('media.*')
+                        <p class="mt-1.5 text-sm text-red-700">{{ $message }}</p>
+                    @enderror
+                @endif
+            </div>
+
             <div class="flex flex-col-reverse gap-3 border-t border-neutral-200 pt-5 sm:flex-row sm:justify-end">
                 <a href="{{ route('drafts') }}"
                    class="inline-flex min-h-11 items-center justify-center rounded-xl border border-neutral-300 px-5 py-2.5 text-sm font-semibold text-neutral-800 transition hover:bg-neutral-100 focus-visible:outline-3 focus-visible:outline-offset-2 focus-visible:outline-accent">

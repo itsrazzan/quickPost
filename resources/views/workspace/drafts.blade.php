@@ -59,6 +59,18 @@
                             <p class="mt-2 text-xs text-neutral-600">
                                 Updated {{ $draft->updated_at->diffForHumans() }}
                             </p>
+
+                            {{-- Thumbnail media yang dilampirkan ke draft --}}
+                            @if ($draft->media->isNotEmpty())
+                                <div class="mt-2 flex flex-wrap gap-1.5">
+                                    @foreach ($draft->media as $media)
+                                        <img src="{{ Storage::disk($media->disk)->url($media->file_path) }}"
+                                             alt="{{ $media->file_name }}"
+                                             loading="lazy"
+                                             class="size-12 rounded-lg border border-neutral-200 object-cover">
+                                    @endforeach
+                                </div>
+                            @endif
                         </div>
                         <div class="flex shrink-0 flex-wrap gap-2">
                             <a href="{{ route('drafts.edit', $draft) }}"
