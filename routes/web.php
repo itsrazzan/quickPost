@@ -2,6 +2,8 @@
 
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\ContentController;
+use App\Http\Controllers\MediaController;
+use App\Http\Controllers\SocialAccountController;
 use Carbon\CarbonImmutable;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -59,13 +61,19 @@ Route::middleware('auth')->group(function () {
         ->whereNumber('draftId')
         ->name('drafts.restore');
 
-    Route::get('/media-library', function () {
-        return view('workspace.media-library');
-    })->name('media-library');
+    // Media library: upload, daftar, dan hapus media milik user.
+    Route::get('/media-library', [MediaController::class, 'index'])->name('media-library');
+    Route::post('/media-library', [MediaController::class, 'store'])->name('media-library.store');
+    Route::delete('/media-library/{media}', [MediaController::class, 'destroy'])->name('media-library.destroy');
 
     Route::get('/settings', function () {
         return view('workspace.settings');
     })->name('settings');
+
+    // Connected accounts (mock): halaman akun sosial terhubung.
+    Route::get('/settings/accounts', [SocialAccountController::class, 'index'])->name('accounts');
+    Route::post('/settings/accounts', [SocialAccountController::class, 'store'])->name('accounts.store');
+    Route::delete('/settings/accounts/{account}', [SocialAccountController::class, 'destroy'])->name('accounts.destroy');
     Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 });
 
